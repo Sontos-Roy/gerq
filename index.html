@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GERD Q - Home</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --purple: #2c1149;
+            --purple2: #512773;
+            --hero: #3b175d;
+            --pink: #b218a0;
+            --yellow: #ffcc00;
+            --light: #f1f1f1;
+        }
+
+        * {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            color: var(--purple2);
+            overflow-x: hidden;
+        }
+
+        .top-header {
+            height: 78px;
+            background: #fff;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 1px 0 rgba(0,0,0,.05);
+        }
+
+        .color-line {
+            height: 6px;
+            background: linear-gradient(90deg,#79a829 0 8%,#512773 8% 39%,#b218a0 39% 70%,#ffcc00 70% 100%);
+            position: fixed;
+            top: 78px;
+            width: 100%;
+            z-index: 1001;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: 900;
+            color: var(--purple);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .logo-mark {
+            font-size: 44px;
+            line-height: 1;
+            color: var(--pink);
+            font-weight: 900;
+        }
+
+        .header-icon {
+            border: 0;
+            background: transparent;
+            color: var(--purple2);
+            font-size: 27px;
+            margin-left: 18px;
+        }
+
+        .hamburger {
+            font-size: 36px;
+            line-height: 1;
+        }
+
+        .nav-panel {
+            position: fixed;
+            top: 0;
+            right: -360px;
+            width: 330px;
+            height: 100vh;
+            background: #fff;
+            z-index: 2000;
+            padding: 35px;
+            transition: .35s;
+            box-shadow: -10px 0 30px rgba(0,0,0,.12);
+        }
+
+        .nav-panel.active {
+            right: 0;
+        }
+
+        .nav-panel a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            color: var(--purple2);
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 800;
+            padding: 18px 0;
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.25);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        .alert-bell {
+            position: fixed;
+            right: 0;
+            top: 160px;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+        }
+
+        .bell-btn {
+            width: 54px;
+            height: 54px;
+            border: 0;
+            border-radius: 10px 0 0 10px;
+            background: var(--yellow);
+            color: var(--purple);
+            font-size: 24px;
+        }
+
+        .bell-text {
+            width: 310px;
+            background: #fff;
+            padding: 18px;
+            border-radius: 12px 0 0 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.15);
+            display: none;
+        }
+
+        .alert-bell:hover .bell-text {
+            display: block;
+        }
+
+        .hero {
+            min-height: 100vh;
+            background: radial-gradient(circle at 75% 50%, #5b2481 0, var(--hero) 38%, var(--purple) 100%);
+            color: #fff;
+            position: relative;
+            padding-top: 84px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            left: -80px;
+            bottom: -80px;
+            width: 570px;
+            height: 570px;
+            background: repeating-radial-gradient(ellipse at center, rgba(255,255,255,.12) 0 12px, transparent 13px 55px);
+            opacity: .45;
+            transform: rotate(-25deg);
+        }
+
+        .hero-content {
+            min-height: calc(100vh - 84px);
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .hero .big-title {
+            font-size: clamp(42px, 5vw, 64px);
+            line-height: 1.05;
+            font-weight: 900;
+            max-width: 620px;
+        }
+
+        .hero .lead-text {
+            font-size: 28px;
+            line-height: 1.25;
+            max-width: 640px;
+        }
+
+        .hero .yellow-text {
+            color: var(--yellow);
+            font-size: 20px;
+            max-width: 660px;
+        }
+
+        .main-btn {
+            background: var(--pink);
+            border: 0;
+            color: #fff;
+            font-size: 22px;
+            font-weight: 900;
+            border-radius: 40px;
+            padding: 15px 80px;
+            min-width: 430px;
+        }
+
+        .body-figure {
+            position: absolute;
+            right: 8%;
+            bottom: 0;
+            width: 520px;
+            height: 720px;
+            opacity: .95;
+        }
+
+        .human {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 430px;
+            height: 680px;
+            background: radial-gradient(circle at 50% 35%, rgba(255,255,255,.25), rgba(117,72,171,.55) 35%, rgba(117,72,171,.25) 65%, transparent 70%);
+            border-radius: 48% 48% 18% 18%;
+        }
+
+        .organ-line {
+            position: absolute;
+            right: 185px;
+            top: 155px;
+            width: 28px;
+            height: 430px;
+            background: #ddd5e5;
+            border-radius: 30px;
+        }
+
+        .stomach {
+            position: absolute;
+            right: 120px;
+            bottom: 180px;
+            width: 180px;
+            height: 120px;
+            background: var(--yellow);
+            border-radius: 55% 30% 55% 45%;
+            transform: rotate(-8deg);
+        }
+
+        .fire {
+            position: absolute;
+            right: 170px;
+            top: 300px;
+            font-size: 54px;
+            color: #ff8a00;
+        }
+
+        .circle-label {
+            position: absolute;
+            right: 160px;
+            top: 115px;
+            width: 112px;
+            height: 112px;
+            border: 10px solid var(--yellow);
+            border-radius: 50%;
+        }
+
+        .difficulty {
+            position: absolute;
+            right: 5%;
+            top: 150px;
+            color: var(--yellow);
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.05;
+        }
+
+        .instructions {
+            min-height: 100vh;
+            padding-top: 160px;
+            background: #fff;
+            position: relative;
+        }
+
+        .info-card {
+            background: #f0f0f0;
+            border-radius: 0 50px 50px 0;
+            padding: 70px 78px;
+            min-height: 390px;
+        }
+
+        .info-card i {
+            font-size: 54px;
+            color: var(--purple2);
+        }
+
+        .info-card h4 {
+            font-size: 27px;
+            font-weight: 700;
+            margin-top: 25px;
+            margin-bottom: 22px;
+        }
+
+        .info-card p {
+            font-size: 18px;
+            line-height: 1.55;
+        }
+
+        .down-test {
+            position: absolute;
+            bottom: -46px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            width: 112px;
+            height: 112px;
+            border-radius: 50%;
+            background: var(--purple);
+            border: 4px solid rgba(178,24,160,.6);
+            color: var(--yellow);
+            font-size: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        .dark-band {
+            height: 90px;
+            background: var(--purple);
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .test-section {
+            background: var(--purple);
+            color: #fff;
+            min-height: 760px;
+            padding: 150px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quiz-box {
+            background: #fff;
+            color: var(--purple2);
+            border-radius: 36px;
+            padding: 45px;
+        }
+
+        .progress {
+            height: 12px;
+            border-radius: 30px;
+            background: rgba(255,255,255,.25);
+            margin-bottom: 30px;
+        }
+
+        .progress-bar {
+            background: var(--yellow);
+        }
+
+        .quiz-title {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 25px;
+        }
+
+        .quiz-btn {
+            width: 100%;
+            border-radius: 35px;
+            border: 2px solid var(--purple2);
+            color: var(--purple2);
+            font-weight: 900;
+            font-size: 18px;
+            padding: 14px;
+            margin-bottom: 15px;
+        }
+
+        .quiz-btn:hover,
+        .quiz-btn.active {
+            background: var(--pink);
+            color: #fff;
+            border-color: var(--pink);
+        }
+
+        .footer-main {
+            background: var(--purple);
+            color: #fff;
+        }
+
+        .footer-alert {
+            background: #211033;
+            color: var(--yellow);
+            padding: 55px 0;
+            font-size: 19px;
+            line-height: 1.55;
+        }
+
+        .footer-bottom {
+            padding: 80px 0 60px;
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        .brand-logos {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 65px;
+        }
+
+        .footer-links a {
+            color: #fff;
+            margin-right: 24px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 991px) {
+            .hero {
+                padding-bottom: 80px;
+            }
+
+            .hero-content {
+                text-align: center;
+                padding-top: 80px;
+            }
+
+            .body-figure,
+            .difficulty {
+                position: relative;
+                right: auto;
+                top: auto;
+                margin: 40px auto 0;
+            }
+
+            .main-btn {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .info-card {
+                margin-bottom: 25px;
+                padding: 45px 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="top-header">
+    <div class="container h-100">
+        <div class="d-flex align-items-center justify-content-between h-100">
+            <a href="#" class="logo">
+                <span class="logo-mark">g</span>
+                <span>GERD Q</span>
+            </a>
+
+            <div class="d-flex align-items-center">
+                <a href="#" class="header-icon"><i class="bi bi-house"></i></a>
+
+                <div class="dropdown">
+                    <button class="header-icon dropdown-toggle" data-bs-toggle="dropdown">
+                        <i class="bi bi-globe2"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a href="#" class="dropdown-item">English</a></li>
+                        <li><a href="#" class="dropdown-item">বাংলা</a></li>
+                    </ul>
+                </div>
+
+                <button class="header-icon hamburger" id="openMenu">
+                    <i class="bi bi-list"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="color-line"></div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="nav-panel" id="navPanel">
+    <button class="btn fs-1 text-purple p-0 mb-5" id="closeMenu">
+        <i class="bi bi-x-lg"></i>
+    </button>
+
+    <a href="#home"><i class="bi bi-house"></i> Home</a>
+    <a href="#instructions"><i class="bi bi-clipboard-check"></i> Instructions</a>
+    <a href="#takethetest"><i class="bi bi-cursor"></i> Take the Test</a>
+</div>
+
+<div class="alert-bell">
+    <div class="bell-text">
+        <h5 class="fw-bold">Remember</h5>
+        <p class="mb-0">Do not forget to share the result with your doctor.</p>
+    </div>
+    <button class="bell-btn"><i class="bi bi-bell"></i></button>
+</div>
+
+<main>
+
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <div class="row w-100 align-items-center">
+                <div class="col-lg-6">
+                    <h1>Gastroesophageal<br>Reflux Disease (GERD)</h1>
+
+                    <div class="big-title mt-3">
+                        Have you felt any of the following symptoms?
+                    </div>
+
+                    <p class="lead-text mt-4">
+                        Heartburn, reflux, burning sensation in your stomach and difficulty swallowing...
+                    </p>
+
+                    <p class="yellow-text mt-3">
+                        Do not underestimate symptoms and find out through this test if you may have GERD
+                    </p>
+
+                    <a href="#instructions">
+                        <button class="main-btn mt-3">TAKE THE TEST</button>
+                    </a>
+
+                    <p class="small mt-2 text-center text-lg-start">
+                        And review the results with your physician.
+                    </p>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="body-figure">
+                        <div class="difficulty">Difficulties<br>to swallow</div>
+                        <div class="human"></div>
+                        <div class="organ-line"></div>
+                        <div class="stomach"></div>
+                        <div class="circle-label"></div>
+                        <div class="fire">🔥</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="instructions" id="instructions">
+        <div class="container">
+            <div class="row justify-content-center g-4">
+                <div class="col-lg-5">
+                    <div class="info-card">
+                        <i class="bi bi-activity"></i>
+                        <h4>Do you have Gastroesophageal Reflux Disease (GERD)?</h4>
+                        <p>
+                            Below, you will find the GERDQ questionnaire, which is a tool to identify Gastroesophageal
+                            Reflux Disease suffered by patients.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="info-card">
+                        <i class="bi bi-clipboard-check"></i>
+                        <h4>Instructions</h4>
+                        <p>
+                            <strong>This questionnaire consists of 6 simple questions which have been validated by experts.</strong>
+                        </p>
+                        <p>
+                            Taking into consideration what you have felt in the past 7 days, answer each question and
+                            review the results with your doctor.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="#takethetest" class="down-test">
+            <i class="bi bi-chevron-double-down"></i>
+        </a>
+
+        <div class="dark-band"></div>
+    </section>
+
+    <section class="test-section" id="takethetest">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-5 mb-lg-0">
+                    <h2 class="display-4 fw-black text-warning">SYMPTOMS</h2>
+                    <p class="fs-4">
+                        Answer the following questions according to what you felt during the last 7 days.
+                    </p>
+                </div>
+
+                <div class="col-lg-7">
+                    <div class="progress">
+                        <div class="progress-bar" id="quizProgress" style="width: 16%;"></div>
+                    </div>
+
+                    <div class="quiz-box">
+                        <h3 class="quiz-title" id="questionText">
+                            How many days did you have a burning feeling behind your breastbone?
+                        </h3>
+
+                        <button class="btn quiz-btn">Never</button>
+                        <button class="btn quiz-btn">1 Day</button>
+                        <button class="btn quiz-btn">2-3 Days</button>
+                        <button class="btn quiz-btn">4-7 Days</button>
+
+                        <button class="main-btn w-100 mt-3" id="nextQuestion">NEXT</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="footer-main">
+    <div class="footer-alert">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-1 text-center fs-1">
+                    <i class="bi bi-exclamation-circle-fill"></i>
+                </div>
+                <div class="col-md-11">
+                    This content is not part of medical advice or a clinical diagnosis. This is preventive information
+                    designed for you to share with your doctor. Do not stop or change your GERD medication without
+                    talking to a health care professional.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="container">
+            <div class="brand-logos">
+                Celebrate Life &nbsp;&nbsp; | &nbsp;&nbsp; AstraZeneca
+            </div>
+
+            <p>
+                *The GERD Q is a validated tool created from different questionnaires and evaluated in clinical studies.
+                GERD means Gastroesophageal Reflux Disease.
+            </p>
+
+            <ol>
+                <li>Accuracy of the diagnosis of GORD by questionnaire.</li>
+                <li>Development of the GerdQ tool for diagnosis and management.</li>
+                <li>Validation and diagnostic usefulness of GERD questionnaire.</li>
+            </ol>
+
+            <div class="footer-links mt-4">
+                <a href="#">Legal notice</a>
+                <a href="#">Privacy policy</a>
+                <a href="#">Cookies policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    const openMenu = document.getElementById('openMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const navPanel = document.getElementById('navPanel');
+    const overlay = document.getElementById('overlay');
+
+    openMenu.addEventListener('click', () => {
+        navPanel.classList.add('active');
+        overlay.classList.add('active');
+    });
+
+    closeMenu.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+
+    function closeNav() {
+        navPanel.classList.remove('active');
+        overlay.classList.remove('active');
+    }
+
+    document.querySelectorAll('.quiz-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.quiz-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+</script>
+
+</body>
+</html>
